@@ -39,19 +39,28 @@ Everything runs on a live Windows Server 2025 domain controller with a real Entr
 
 ![lab Phantom-archetypes](img/archetypes.png)
 
-4. **Write the Conditional Access policy baseline** — CA-001: MFA for all users. CA-002: MFA for admin directory roles. CA-003: Block legacy authentication. CA-004: Compliant device requirement (deferred — Intune not configured).<img width="404" height="162" alt="image" src="https://github.com/user-attachments/assets/f6f141d8-6e5e-447c-bd65-0770b9863163" />
-5. **Create the break-glass account** — `bga001@phenomenon532.onmicrosoft.com` with Global Administrator role, no MFA registered, excluded from CA-001 and CA-002 but not CA-003.<img width="1914" height="820" alt="image"
+4. **Write the Conditional Access policy baseline** — CA-001: MFA for all users. CA-002: MFA for admin directory roles. CA-003: Block legacy authentication. CA-004: Compliant device requirement (deferred — Intune not configured).
+
+![ Conditional Access policy baseline](img/baseline.png)
+
+6. **Create the break-glass account** — `bga001@phenomenon532.onmicrosoft.com` with Global Administrator role, no MFA registered, excluded from CA-001 and CA-002 but not CA-003.<img width="1914" height="820" alt="image"
 
 ![break-glass account](img/bga.PNG)
 
-10. **Map policy intent to IAM vocabulary** — Six mappings connecting business rules (e.g., "contractors get restricted access") to specific Entra objects (e.g., `GRP_Contractors → excluded from ResearchHub app assignment`).<img width="563" height="422" alt="image" src="https://github.com/user-attachments/assets/263115a6-f4e6-4333-8761-e68a135c7e87" />
+6. **Map policy intent to IAM vocabulary** — Six mappings connecting business rules (e.g., "contractors get restricted access") to specific Entra objects (e.g., `GRP_Contractors → excluded from ResearchHub app assignment`).
+![Policy intent to IAM object mapping](img/policy.png)
 
 ---
 ### Phase 2 — Architecture Design
 
-7. **Diagram the AD → Entra Connect sync pipeline** — OU scoping filters, attribute flow direction, Password Hash Sync on a 2-minute channel, delta sync on a 30-minute cycle.<img width="1062" height="793" alt="image" src="https://github.com/user-attachments/assets/3efe7fdd-623e-45ff-8788-3eba6b50207f" />
-8. **Diagram the SSO trust flows** — SAML SP-initiated flow (AuthnRequest → Entra authentication → signed XML assertion → ACS URL) alongside OIDC authorization code + PKCE flow (code challenge → Entra → authorization code → token exchange with verifier → Graph API calls).
-9. **Diagram the Conditional Access evaluation chain** — Four signal categories (user/group, device state, location, risk score) evaluated in parallel, most restrictive policy wins, three outcomes (grant, grant with controls, block).<img width="666" height="830" alt="image" src="https://github.com/user-attachments/assets/4b9b1e2f-7036-4ed3-9fbb-5b20baa611a3" />
+7. **Diagram the AD → Entra Connect sync pipeline** — OU scoping filters, attribute flow direction, Password Hash Sync on a 2-minute channel, delta sync on a 30-minute cycle.
+
+![AD to Entra sync pipeline diagram](img/pipeline.png)
+
+9. **Diagram the SSO trust flows** — SAML SP-initiated flow (AuthnRequest → Entra authentication → signed XML assertion → ACS URL) alongside OIDC authorization code + PKCE flow (code challenge → Entra → authorization code → token exchange with verifier → Graph API calls).
+10. **Diagram the Conditional Access evaluation chain** — Four signal categories (user/group, device state, location, risk score) evaluated in parallel, most restrictive policy wins, three outcomes (grant, grant with controls, block).
+
+![Conditional access evaluation flowchart](img/flowchart.png)
 
 10. **Diagram the diagnostic log pipeline** — Sign-in logs, audit logs, and provisioning logs flowing to Entra log store, queryable via Graph API, Entra portal UI, and Log Analytics with KQL.
 
