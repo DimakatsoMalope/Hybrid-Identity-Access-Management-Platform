@@ -8,7 +8,7 @@ This project demonstrates the design, implementation, testing, and operational v
 
 ## 1. Purpose
 
-This project simulates a production hybrid identity environment for a mid-sized organization (SSO Labs Robotics). The objective of this project was to design, implement, secure, and validate a production-style hybrid identity platform representative of what is commonly deployed within enterprise environments, from on-premises Active Directory through cloud sync to Entra ID, SSO-enabled applications, Conditional Access enforcement, and incident response readiness.
+This project simulates a production hybrid identity environment for a mid-sized organization (SSO Labs Phantom). The objective of this project was to design, implement, secure, and validate a production-style hybrid identity platform representative of what is commonly deployed within enterprise environments, from on-premises Active Directory through cloud sync to Entra ID, SSO-enabled applications, Conditional Access enforcement, and incident response readiness.
 
 The lab answers a specific set of enterprise IAM questions hands-on:
 
@@ -27,12 +27,21 @@ Everything runs on a live Windows Server 2025 domain controller with a real Entr
 
 ### Phase 1 — Requirements & Scope Definition
 
-1. **Define the company identity** — SSO Labs Robotics, a Zürich-headquartered robotics research company with employees and short-term contractors handling sensitive IP.<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/fee8d1ec-993e-4486-89cb-2cea490edcec" />
-2. **Design two user populations** — Employees (long-term, full app access, 4 departments) and Contractors (90–180 day tenure, restricted to project-specific resources only). Each population maps to a distinct AD OU and Entra group.<img width="751" height="796" alt="image" src="https://github.com/user-attachments/assets/12ff5912-1ff5-4d46-b2d9-40fd8f9062dc" />
-3. **Scope three application archetypes** — RoboFleet Portal (SAML 2.0 enterprise app), ResearchHub (OIDC app registration with Graph API integration), LabOps Console (originally planned as Entra Application Proxy, pivoted to OIDC confidential client due to P2 licensing requirement).<img width="645" height="834" alt="image" src="https://github.com/user-attachments/assets/f7de15ba-f9f2-41af-b0a3-e44c3a5c83f7" />
-4. **Write the Conditional Access policy baseline** — CA-001: MFA for all users. CA-002: MFA for admin directory roles. CA-003: Block legacy authentication. CA-004: Compliant device requirement (deferred — Intune not configured).<img width="404" height="162" alt="image" src="https://github.com/user-attachments/assets/f6f141d8-6e5e-447c-bd65-0770b9863163" />
-5. **Create the break-glass account** — `bga001@ssolabs1001.onmicrosoft.com` with Global Administrator role, no MFA registered, excluded from CA-001 and CA-002 but not CA-003.<img width="1914" height="820" alt="image" src="https://github.com/user-attachments/assets/87a9ca9e-eeeb-4c49-ad6f-c2e3b069d505" />
-6. **Map policy intent to IAM vocabulary** — Six mappings connecting business rules (e.g., "contractors get restricted access") to specific Entra objects (e.g., `GRP_Contractors → excluded from ResearchHub app assignment`).<img width="563" height="422" alt="image" src="https://github.com/user-attachments/assets/263115a6-f4e6-4333-8761-e68a135c7e87" />
+1. **Define the company identity** — SSO Labs Phantom, a Pretoria-headquartered robotics research company with employees and short-term contractors handling sensitive IP.
+
+![lab Phantom](img/company.png)
+
+2. **Design two user populations** — Employees (long-term, full app access, 4 departments) and Contractors (90–180 day tenure, restricted to project-specific resources only). Each population maps to a distinct AD OU and Entra group.<img
+
+![lab Phantom-users](img/user.png) 
+
+3. **Scope three application archetypes** — RoboFleet Portal (SAML 2.0 enterprise app), ResearchHub (OIDC app registration with Graph API integration), LabOps Console (originally planned as Entra Application Proxy, pivoted to OIDC confidential client due to P2 licensing requirement).
+
+![lab Phantom-archetypes](img/archetypes.png)
+
+7. **Write the Conditional Access policy baseline** — CA-001: MFA for all users. CA-002: MFA for admin directory roles. CA-003: Block legacy authentication. CA-004: Compliant device requirement (deferred — Intune not configured).<img width="404" height="162" alt="image" src="https://github.com/user-attachments/assets/f6f141d8-6e5e-447c-bd65-0770b9863163" />
+8. **Create the break-glass account** — `bga001@ssolabs1001.onmicrosoft.com` with Global Administrator role, no MFA registered, excluded from CA-001 and CA-002 but not CA-003.<img width="1914" height="820" alt="image" src="https://github.com/user-attachments/assets/87a9ca9e-eeeb-4c49-ad6f-c2e3b069d505" />
+9. **Map policy intent to IAM vocabulary** — Six mappings connecting business rules (e.g., "contractors get restricted access") to specific Entra objects (e.g., `GRP_Contractors → excluded from ResearchHub app assignment`).<img width="563" height="422" alt="image" src="https://github.com/user-attachments/assets/263115a6-f4e6-4333-8761-e68a135c7e87" />
 
 ---
 ### Phase 2 — Architecture Design
