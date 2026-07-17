@@ -18,7 +18,7 @@ The lab answers a specific set of enterprise IAM questions hands-on:
 - How do you automate directory queries using Microsoft Graph API with the client credentials flow?
 - How do you diagnose the five most common hybrid identity incidents — sync failures, CA blocks, SAML assertion errors, MFA lockouts, and missing users?
 
-Everything runs on a live Windows Server 2025 domain controller with a real Entra ID P1 tenant (`ssolabs1001.onmicrosoft.com`).
+Everything runs on a live Windows Server 2025 domain controller with a real Entra ID P1 tenant (`phenomenon532.onmicrosoft.com`).
 
 
 ---
