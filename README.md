@@ -39,9 +39,12 @@ Everything runs on a live Windows Server 2025 domain controller with a real Entr
 
 ![lab Phantom-archetypes](img/archetypes.png)
 
-7. **Write the Conditional Access policy baseline** — CA-001: MFA for all users. CA-002: MFA for admin directory roles. CA-003: Block legacy authentication. CA-004: Compliant device requirement (deferred — Intune not configured).<img width="404" height="162" alt="image" src="https://github.com/user-attachments/assets/f6f141d8-6e5e-447c-bd65-0770b9863163" />
-8. **Create the break-glass account** — `bga001@ssolabs1001.onmicrosoft.com` with Global Administrator role, no MFA registered, excluded from CA-001 and CA-002 but not CA-003.<img width="1914" height="820" alt="image" src="https://github.com/user-attachments/assets/87a9ca9e-eeeb-4c49-ad6f-c2e3b069d505" />
-9. **Map policy intent to IAM vocabulary** — Six mappings connecting business rules (e.g., "contractors get restricted access") to specific Entra objects (e.g., `GRP_Contractors → excluded from ResearchHub app assignment`).<img width="563" height="422" alt="image" src="https://github.com/user-attachments/assets/263115a6-f4e6-4333-8761-e68a135c7e87" />
+4. **Write the Conditional Access policy baseline** — CA-001: MFA for all users. CA-002: MFA for admin directory roles. CA-003: Block legacy authentication. CA-004: Compliant device requirement (deferred — Intune not configured).<img width="404" height="162" alt="image" src="https://github.com/user-attachments/assets/f6f141d8-6e5e-447c-bd65-0770b9863163" />
+5. **Create the break-glass account** — `bga001@phenomenon532.onmicrosoft.com` with Global Administrator role, no MFA registered, excluded from CA-001 and CA-002 but not CA-003.<img width="1914" height="820" alt="image"
+
+![break-glass account](img/bga.PNG)
+
+10. **Map policy intent to IAM vocabulary** — Six mappings connecting business rules (e.g., "contractors get restricted access") to specific Entra objects (e.g., `GRP_Contractors → excluded from ResearchHub app assignment`).<img width="563" height="422" alt="image" src="https://github.com/user-attachments/assets/263115a6-f4e6-4333-8761-e68a135c7e87" />
 
 ---
 ### Phase 2 — Architecture Design
